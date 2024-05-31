@@ -1,4 +1,9 @@
-import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
+import {
+  Link,
+  Outlet,
+  createRootRoute,
+  useRouter,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 export const Route = createRootRoute({
@@ -9,6 +14,17 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const router = useRouter();
+
+  const matchWithTitle = [...router.state.matches]
+    .reverse()
+    // @ts-ignore
+    .find((d) => d.routeContext.getTitle);
+
+  // @ts-ignore
+  const title = matchWithTitle?.routeContext.getTitle() || "GST Docs";
+  document.title = title;
+
   return (
     <>
       <div className="flex gap-2 p-2 text-lg">
@@ -31,8 +47,9 @@ function RootComponent() {
         </Link>
       </div>
       <hr />
-      <Outlet />
-      {/* Start rendering router matches */}
+      <div className="container mx-auto py-4">
+        <Outlet />
+      </div>
       <TanStackRouterDevtools position="bottom-left" />
     </>
   );

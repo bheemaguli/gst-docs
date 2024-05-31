@@ -1,3 +1,4 @@
+import { getHttpMethodWithStyle } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
@@ -46,10 +47,35 @@ export const columns: ColumnDef<CommonApiProps>[] = [
                 <TableCell>{api.version}</TableCell>
                 <TableCell>{api.publishedOn}</TableCell>
                 <TableCell>{api.status}</TableCell>
+                <TableCell className="w-96 whitespace-nowrap text-left font-mono">
+                  {getHttpMethodWithStyle(row.original.httpMethod)}
+                  <span className="ml-2">
+                    {api.url.replace("https://<domain-name>", "")}
+                  </span>
+                </TableCell>
                 <TableCell>
-                  <Button>
-                    <Link to={api.routerUrl}>Show More</Link>
-                  </Button>
+                  {api.subType ? (
+                    <Link
+                      to="/commonapi/$apiVersion/$apiSubType/$apiEndpoint"
+                      params={{
+                        apiVersion: api.version,
+                        apiSubType: api.subType,
+                        apiEndpoint: api.apiEndpoint,
+                      }}
+                    >
+                      <Button>Show More</Button>
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/commonapi/$apiVersion/$apiEndpoint"
+                      params={{
+                        apiVersion: api.version,
+                        apiEndpoint: api.apiEndpoint,
+                      }}
+                    >
+                      <Button>Show More</Button>
+                    </Link>
+                  )}
                 </TableCell>
               </TableRow>
             ))}

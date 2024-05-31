@@ -13,17 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as CommonapiIndexImport } from './routes/commonapi/index'
-import { Route as CommonapiV13SearchImport } from './routes/commonapi/v13/search'
-import { Route as CommonapiV12SearchImport } from './routes/commonapi/v12/search'
-import { Route as CommonapiV11SearchImport } from './routes/commonapi/v11/search'
-import { Route as CommonapiV10TpstatusImport } from './routes/commonapi/v10/tpstatus'
-import { Route as CommonapiV10TpaddtlstatusImport } from './routes/commonapi/v10/tpaddtlstatus'
-import { Route as CommonapiV10ReturnsImport } from './routes/commonapi/v10/returns'
-import { Route as CommonapiV10IrnImport } from './routes/commonapi/v10/irn'
-import { Route as CommonapiV10InclistImport } from './routes/commonapi/v10/inclist'
-import { Route as CommonapiV10IrnSearchImport } from './routes/commonapi/v10/irn/search'
-import { Route as CommonapiV10FipServicesImport } from './routes/commonapi/v10/fip/services'
-import { Route as CommonapiV10FipSearchbypanImport } from './routes/commonapi/v10/fip/searchbypan'
+import { Route as CommonapiApiVersionApiEndpointImport } from './routes/commonapi/$apiVersion.$apiEndpoint'
+import { Route as CommonapiApiVersionApiSubTypeApiEndpointImport } from './routes/commonapi/$apiVersion.$apiSubType.$apiEndpoint'
 
 // Create/Update Routes
 
@@ -37,62 +28,17 @@ const CommonapiIndexRoute = CommonapiIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const CommonapiV13SearchRoute = CommonapiV13SearchImport.update({
-  path: '/commonapi/v13/search',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CommonapiV12SearchRoute = CommonapiV12SearchImport.update({
-  path: '/commonapi/v12/search',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CommonapiV11SearchRoute = CommonapiV11SearchImport.update({
-  path: '/commonapi/v11/search',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CommonapiV10TpstatusRoute = CommonapiV10TpstatusImport.update({
-  path: '/commonapi/v10/tpstatus',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CommonapiV10TpaddtlstatusRoute = CommonapiV10TpaddtlstatusImport.update({
-  path: '/commonapi/v10/tpaddtlstatus',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CommonapiV10ReturnsRoute = CommonapiV10ReturnsImport.update({
-  path: '/commonapi/v10/returns',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CommonapiV10IrnRoute = CommonapiV10IrnImport.update({
-  path: '/commonapi/v10/irn',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CommonapiV10InclistRoute = CommonapiV10InclistImport.update({
-  path: '/commonapi/v10/inclist',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CommonapiV10IrnSearchRoute = CommonapiV10IrnSearchImport.update({
-  path: '/search',
-  getParentRoute: () => CommonapiV10IrnRoute,
-} as any)
-
-const CommonapiV10FipServicesRoute = CommonapiV10FipServicesImport.update({
-  path: '/commonapi/v10/fip/services',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CommonapiV10FipSearchbypanRoute = CommonapiV10FipSearchbypanImport.update(
-  {
-    path: '/commonapi/v10/fip/searchbypan',
+const CommonapiApiVersionApiEndpointRoute =
+  CommonapiApiVersionApiEndpointImport.update({
+    path: '/commonapi/$apiVersion/$apiEndpoint',
     getParentRoute: () => rootRoute,
-  } as any,
-)
+  } as any)
+
+const CommonapiApiVersionApiSubTypeApiEndpointRoute =
+  CommonapiApiVersionApiSubTypeApiEndpointImport.update({
+    path: '/commonapi/$apiVersion/$apiSubType/$apiEndpoint',
+    getParentRoute: () => rootRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -112,82 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommonapiIndexImport
       parentRoute: typeof rootRoute
     }
-    '/commonapi/v10/inclist': {
-      id: '/commonapi/v10/inclist'
-      path: '/commonapi/v10/inclist'
-      fullPath: '/commonapi/v10/inclist'
-      preLoaderRoute: typeof CommonapiV10InclistImport
+    '/commonapi/$apiVersion/$apiEndpoint': {
+      id: '/commonapi/$apiVersion/$apiEndpoint'
+      path: '/commonapi/$apiVersion/$apiEndpoint'
+      fullPath: '/commonapi/$apiVersion/$apiEndpoint'
+      preLoaderRoute: typeof CommonapiApiVersionApiEndpointImport
       parentRoute: typeof rootRoute
     }
-    '/commonapi/v10/irn': {
-      id: '/commonapi/v10/irn'
-      path: '/commonapi/v10/irn'
-      fullPath: '/commonapi/v10/irn'
-      preLoaderRoute: typeof CommonapiV10IrnImport
+    '/commonapi/$apiVersion/$apiSubType/$apiEndpoint': {
+      id: '/commonapi/$apiVersion/$apiSubType/$apiEndpoint'
+      path: '/commonapi/$apiVersion/$apiSubType/$apiEndpoint'
+      fullPath: '/commonapi/$apiVersion/$apiSubType/$apiEndpoint'
+      preLoaderRoute: typeof CommonapiApiVersionApiSubTypeApiEndpointImport
       parentRoute: typeof rootRoute
-    }
-    '/commonapi/v10/returns': {
-      id: '/commonapi/v10/returns'
-      path: '/commonapi/v10/returns'
-      fullPath: '/commonapi/v10/returns'
-      preLoaderRoute: typeof CommonapiV10ReturnsImport
-      parentRoute: typeof rootRoute
-    }
-    '/commonapi/v10/tpaddtlstatus': {
-      id: '/commonapi/v10/tpaddtlstatus'
-      path: '/commonapi/v10/tpaddtlstatus'
-      fullPath: '/commonapi/v10/tpaddtlstatus'
-      preLoaderRoute: typeof CommonapiV10TpaddtlstatusImport
-      parentRoute: typeof rootRoute
-    }
-    '/commonapi/v10/tpstatus': {
-      id: '/commonapi/v10/tpstatus'
-      path: '/commonapi/v10/tpstatus'
-      fullPath: '/commonapi/v10/tpstatus'
-      preLoaderRoute: typeof CommonapiV10TpstatusImport
-      parentRoute: typeof rootRoute
-    }
-    '/commonapi/v11/search': {
-      id: '/commonapi/v11/search'
-      path: '/commonapi/v11/search'
-      fullPath: '/commonapi/v11/search'
-      preLoaderRoute: typeof CommonapiV11SearchImport
-      parentRoute: typeof rootRoute
-    }
-    '/commonapi/v12/search': {
-      id: '/commonapi/v12/search'
-      path: '/commonapi/v12/search'
-      fullPath: '/commonapi/v12/search'
-      preLoaderRoute: typeof CommonapiV12SearchImport
-      parentRoute: typeof rootRoute
-    }
-    '/commonapi/v13/search': {
-      id: '/commonapi/v13/search'
-      path: '/commonapi/v13/search'
-      fullPath: '/commonapi/v13/search'
-      preLoaderRoute: typeof CommonapiV13SearchImport
-      parentRoute: typeof rootRoute
-    }
-    '/commonapi/v10/fip/searchbypan': {
-      id: '/commonapi/v10/fip/searchbypan'
-      path: '/commonapi/v10/fip/searchbypan'
-      fullPath: '/commonapi/v10/fip/searchbypan'
-      preLoaderRoute: typeof CommonapiV10FipSearchbypanImport
-      parentRoute: typeof rootRoute
-    }
-    '/commonapi/v10/fip/services': {
-      id: '/commonapi/v10/fip/services'
-      path: '/commonapi/v10/fip/services'
-      fullPath: '/commonapi/v10/fip/services'
-      preLoaderRoute: typeof CommonapiV10FipServicesImport
-      parentRoute: typeof rootRoute
-    }
-    '/commonapi/v10/irn/search': {
-      id: '/commonapi/v10/irn/search'
-      path: '/search'
-      fullPath: '/commonapi/v10/irn/search'
-      preLoaderRoute: typeof CommonapiV10IrnSearchImport
-      parentRoute: typeof CommonapiV10IrnImport
     }
   }
 }
@@ -197,18 +80,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   CommonapiIndexRoute,
-  CommonapiV10InclistRoute,
-  CommonapiV10IrnRoute: CommonapiV10IrnRoute.addChildren({
-    CommonapiV10IrnSearchRoute,
-  }),
-  CommonapiV10ReturnsRoute,
-  CommonapiV10TpaddtlstatusRoute,
-  CommonapiV10TpstatusRoute,
-  CommonapiV11SearchRoute,
-  CommonapiV12SearchRoute,
-  CommonapiV13SearchRoute,
-  CommonapiV10FipSearchbypanRoute,
-  CommonapiV10FipServicesRoute,
+  CommonapiApiVersionApiEndpointRoute,
+  CommonapiApiVersionApiSubTypeApiEndpointRoute,
 })
 
 /* prettier-ignore-end */
@@ -221,16 +94,8 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/commonapi/",
-        "/commonapi/v10/inclist",
-        "/commonapi/v10/irn",
-        "/commonapi/v10/returns",
-        "/commonapi/v10/tpaddtlstatus",
-        "/commonapi/v10/tpstatus",
-        "/commonapi/v11/search",
-        "/commonapi/v12/search",
-        "/commonapi/v13/search",
-        "/commonapi/v10/fip/searchbypan",
-        "/commonapi/v10/fip/services"
+        "/commonapi/$apiVersion/$apiEndpoint",
+        "/commonapi/$apiVersion/$apiSubType/$apiEndpoint"
       ]
     },
     "/": {
@@ -239,42 +104,11 @@ export const routeTree = rootRoute.addChildren({
     "/commonapi/": {
       "filePath": "commonapi/index.tsx"
     },
-    "/commonapi/v10/inclist": {
-      "filePath": "commonapi/v10/inclist.tsx"
+    "/commonapi/$apiVersion/$apiEndpoint": {
+      "filePath": "commonapi/$apiVersion.$apiEndpoint.tsx"
     },
-    "/commonapi/v10/irn": {
-      "filePath": "commonapi/v10/irn.tsx",
-      "children": [
-        "/commonapi/v10/irn/search"
-      ]
-    },
-    "/commonapi/v10/returns": {
-      "filePath": "commonapi/v10/returns.tsx"
-    },
-    "/commonapi/v10/tpaddtlstatus": {
-      "filePath": "commonapi/v10/tpaddtlstatus.tsx"
-    },
-    "/commonapi/v10/tpstatus": {
-      "filePath": "commonapi/v10/tpstatus.tsx"
-    },
-    "/commonapi/v11/search": {
-      "filePath": "commonapi/v11/search.tsx"
-    },
-    "/commonapi/v12/search": {
-      "filePath": "commonapi/v12/search.tsx"
-    },
-    "/commonapi/v13/search": {
-      "filePath": "commonapi/v13/search.tsx"
-    },
-    "/commonapi/v10/fip/searchbypan": {
-      "filePath": "commonapi/v10/fip/searchbypan.tsx"
-    },
-    "/commonapi/v10/fip/services": {
-      "filePath": "commonapi/v10/fip/services.tsx"
-    },
-    "/commonapi/v10/irn/search": {
-      "filePath": "commonapi/v10/irn/search.tsx",
-      "parent": "/commonapi/v10/irn"
+    "/commonapi/$apiVersion/$apiSubType/$apiEndpoint": {
+      "filePath": "commonapi/$apiVersion.$apiSubType.$apiEndpoint.tsx"
     }
   }
 }
