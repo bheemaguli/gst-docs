@@ -6,11 +6,11 @@ A developer friendly gst docs
 
 - [x] Setup ininial frontend stack
 - [x] Setup scrapper for main page
-- [] Setup scrapper for detail page
-- [] Setup Swagger API Docs
-- [] Setup end-to-end scrapping and updating of data
+- [ ] Setup scrapper for detail page
+- [ ] Setup Swagger API Docs
+- [ ] Setup end-to-end scrapping and updating of data
 
-### Current progree
+### Current progress
 
 ![Common API List](public/common-api-list.png "API List page")
 
