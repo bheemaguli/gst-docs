@@ -18,6 +18,9 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { getApiData } from "@/lib/utils";
 import { Link, createFileRoute, redirect } from "@tanstack/react-router";
 
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
 export const Route = createFileRoute("/commonapi/$apiVersion/$apiEndpoint")({
   beforeLoad: () => ({
     getTitle: () => {
@@ -79,15 +82,75 @@ export function ApiDetails(props: ApiDetailsProps) {
           </div>
           <CardDescription>{props.apiData.description}</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           <Table>
             <TableBody>
               <TableRow>
-                <TableCell>HTTP METHOD</TableCell>
-                <TableCell>{props.apiData.httpMethod}</TableCell>
+                <TableCell>
+                  <span className="h-8 rounded bg-green-600 px-4 text-xl text-white">
+                    {props.apiData.httpMethod}
+                  </span>
+                </TableCell>
+                <TableCell>{props.apiData.url}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Content Type</TableCell>
+                <TableCell>application/json</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>URL Parameters</TableCell>
+                <TableCell>irn={"{}"}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Encription</TableCell>
+                <TableCell>No</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>API Action</TableCell>
+                <TableCell>{props.apiData.apiAction}</TableCell>
               </TableRow>
             </TableBody>
           </Table>
+          {props.apiData.response ? (
+            <div className="space-y-2">
+              <CardTitle>Response Example</CardTitle>
+              <span className="!my-0 flex h-0">
+                <Button
+                  size={"sm"}
+                  className="relative -bottom-4 right-3 z-10 ml-auto"
+                  onClick={() =>
+                    navigator.clipboard.writeText(
+                      JSON.stringify(props.apiData.response, null, 2),
+                    )
+                  }
+                >
+                  Copy
+                </Button>
+              </span>
+              <ScrollArea className="max-h-96 overflow-y-auto whitespace-pre rounded bg-cyan-200 p-4 font-mono text-sm">
+                {JSON.stringify(props.apiData.response, null, 2)}
+              </ScrollArea>
+            </div>
+          ) : null}
+          {props.apiData.errorCodes ? (
+            <div className="space-y-2">
+              <CardTitle>Error Codes</CardTitle>
+              <Table>
+                <TableBody>
+                  {Object.keys(props.apiData.errorCodes).map((key) => (
+                    <TableRow id={key}>
+                      <TableCell>{key}</TableCell>
+                      <TableCell>
+                        {props.apiData.errorCodes
+                          ? props.apiData.errorCodes[key]
+                          : null}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          ) : null}
         </CardContent>
       </Card>
     </div>
