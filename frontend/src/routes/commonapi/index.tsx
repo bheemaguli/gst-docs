@@ -19,6 +19,9 @@ import { Fragment } from "react/jsx-runtime";
 
 export const Route = createFileRoute("/commonapi/")({
   beforeLoad: () => ({ getTitle: () => "Common Apis" }),
+  notFoundComponent: () => {
+    return <p>This setting page doesn't exist!</p>
+  },
   component: () => (
     <Fragment>
       <Breadcrumb className="mb-4">

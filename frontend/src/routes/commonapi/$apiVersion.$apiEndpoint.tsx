@@ -20,23 +20,27 @@ import { Link, createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/commonapi/$apiVersion/$apiEndpoint")({
   beforeLoad: () => ({
-    getTitle: () => Route.useParams().apiEndpoint,
+    getTitle: () => {
+      const { apiVersion, apiEndpoint } = Route.useParams();
+      const apiData: FullApiProps = getApiData(
+        commonApis,
+        apiVersion,
+        null,
+        apiEndpoint,
+      );
+      localStorage.setItem("apiData", JSON.stringify(apiData))
+      if (apiData) {
+        return apiData.title
+      }
+    },
   }),
   component: () => {
-    const { apiVersion, apiEndpoint } = Route.useParams();
-    const apiData: FullApiProps = getApiData(
-      commonApis,
-      apiVersion,
-      null,
-      apiEndpoint,
-    );
-    if (apiData) {
+    let localData = localStorage.getItem("apiData")
+    if (localData && JSON.parse(localData)) {
+      let apiData: FullApiProps = JSON.parse(localData)
       return <ApiDetails apiData={apiData} />;
     } else {
-      redirect({
-        to: "/",
-        throw: true,
-      });
+      redirect({ to: "/commonapi", throw: true })
     }
   },
 });

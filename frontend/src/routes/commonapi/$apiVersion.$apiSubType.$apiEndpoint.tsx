@@ -1,29 +1,34 @@
 import { FullApiProps, commonApis } from "@/components/commonapis/data";
 import { getApiData } from "@/lib/utils";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ApiDetails } from "./$apiVersion.$apiEndpoint";
 
 export const Route = createFileRoute(
   "/commonapi/$apiVersion/$apiSubType/$apiEndpoint",
 )({
   beforeLoad: () => ({
-    getTitle: () => Route.useParams().apiEndpoint,
+    getTitle: () => {
+      const { apiVersion, apiSubType, apiEndpoint } = Route.useParams();
+      const apiData: FullApiProps = getApiData(
+        commonApis,
+        apiVersion,
+        apiSubType,
+        apiEndpoint,
+      );
+      localStorage.setItem("apiData", JSON.stringify(apiData))
+      if (apiData) {
+        return apiData.title
+      }
+    },
   }),
   component: () => {
-    const { apiVersion, apiSubType, apiEndpoint } = Route.useParams();
-    const apiData: FullApiProps = getApiData(
-      commonApis,
-      apiVersion,
-      apiSubType,
-      apiEndpoint,
-    );
-    if (apiData) {
+    let localData = localStorage.getItem("apiData")
+    if (localData && JSON.parse(localData)) {
+      let apiData: FullApiProps = JSON.parse(localData)
       return <ApiDetails apiData={apiData} />;
     } else {
-      redirect({
-        to: "/",
-        throw: true,
-      });
+      throw notFound()
     }
   },
+  notFoundComponent: () => <div>I'm the Not found page</div>,
 });
