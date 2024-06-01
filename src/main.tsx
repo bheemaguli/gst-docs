@@ -4,6 +4,7 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 // Set up a Router instance
 const router = createRouter({
+  basepath: '/gst-docs/',
   routeTree,
   defaultPreload: "intent",
 });
