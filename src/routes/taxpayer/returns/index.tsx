@@ -1,4 +1,4 @@
-import apiJson from "@/../../backend/apis.json";
+import apiJson from "@/../scrapper/apis.json";
 import { columns } from "@/components/api-data-table/columns";
 import { DataTable } from "@/components/api-data-table/data-table";
 import { CommonApiSpec } from "@/components/api-data-table/spec";
@@ -23,6 +23,9 @@ export const Route = createFileRoute("/taxpayer/returns/")({
     return <p>This setting page doesn't exist!</p>;
   },
   component: () => {
+    if (!apiJson) {
+      return null
+    }
     return (
       <Fragment>
         <Breadcrumb className="mb-4">

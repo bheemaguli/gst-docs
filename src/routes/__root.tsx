@@ -58,7 +58,9 @@ function RootComponent() {
       <div className="container mx-auto py-4">
         <Outlet />
       </div>
-      <TanStackRouterDevtools position="bottom-left" />
+      {process.env.NODE_ENV == 'development' ?
+        <TanStackRouterDevtools position="bottom-left" /> : null
+      }
     </>
   );
 }
