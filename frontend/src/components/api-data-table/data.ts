@@ -2,10 +2,10 @@ import { z } from "zod";
 const ApiProps = z.object({
   version: z.string(),
   subType: z.string().optional(),
-  apiEndpoint: z.string(),
+  apiEndpoint: z.string().optional(),
   publishedOn: z.string(),
-  status: z.enum(["Draft", "Final"]),
-  url: z.string(),
+  status: z.enum(["Draft", "Final", "Mock"]),
+  url: z.string().optional(),
   response: z.any().optional(),
   responseSchema: z.any().optional(),
   errorCodes: z.record(z.string(), z.string()).optional(),

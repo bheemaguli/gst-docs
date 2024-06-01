@@ -1,6 +1,6 @@
-import { columns } from "@/components/commonapis/columns";
-import { commonApis } from "@/components/commonapis/data";
-import { DataTable } from "@/components/commonapis/data-table";
+import { columns } from "@/components/api-data-table/columns";
+import { commonApis } from "@/components/api-data-table/data";
+import { DataTable } from "@/components/api-data-table/data-table";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,14 +13,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SwaggerUI from "swagger-ui-react";
 import "swagger-ui-react/swagger-ui.css";
 
-import { CommonApiSpec } from "@/components/commonapis/spec";
+import { CommonApiSpec } from "@/components/api-data-table/spec";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { Fragment } from "react/jsx-runtime";
 
 export const Route = createFileRoute("/commonapi/")({
   beforeLoad: () => ({ getTitle: () => "Common Apis" }),
   notFoundComponent: () => {
-    return <p>This setting page doesn't exist!</p>
+    return <p>This setting page doesn't exist!</p>;
   },
   component: () => (
     <Fragment>

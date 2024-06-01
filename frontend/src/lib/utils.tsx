@@ -1,4 +1,4 @@
-import { ApiProps, CommonApiProps } from "@/components/commonapis/data";
+import { ApiProps, CommonApiProps } from "@/components/api-data-table/data";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -26,8 +26,6 @@ export function getHttpMethodWithStyle(httpMethod: string) {
   } else if (httpMethod == "PATCH") {
     return <span>PATCH</span>;
   }
-
-  se;
 }
 
 export function getApiData(

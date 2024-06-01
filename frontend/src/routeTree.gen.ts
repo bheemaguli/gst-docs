@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as CommonapiIndexImport } from './routes/commonapi/index'
+import { Route as TaxpayerReturnsIndexImport } from './routes/taxpayer/returns/index'
 import { Route as CommonapiApiVersionApiEndpointImport } from './routes/commonapi/$apiVersion.$apiEndpoint'
 import { Route as CommonapiApiVersionApiSubTypeApiEndpointImport } from './routes/commonapi/$apiVersion.$apiSubType.$apiEndpoint'
 
@@ -25,6 +26,11 @@ const IndexRoute = IndexImport.update({
 
 const CommonapiIndexRoute = CommonapiIndexImport.update({
   path: '/commonapi/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TaxpayerReturnsIndexRoute = TaxpayerReturnsIndexImport.update({
+  path: '/taxpayer/returns/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -65,6 +71,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommonapiApiVersionApiEndpointImport
       parentRoute: typeof rootRoute
     }
+    '/taxpayer/returns/': {
+      id: '/taxpayer/returns/'
+      path: '/taxpayer/returns'
+      fullPath: '/taxpayer/returns'
+      preLoaderRoute: typeof TaxpayerReturnsIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/commonapi/$apiVersion/$apiSubType/$apiEndpoint': {
       id: '/commonapi/$apiVersion/$apiSubType/$apiEndpoint'
       path: '/commonapi/$apiVersion/$apiSubType/$apiEndpoint'
@@ -81,6 +94,7 @@ export const routeTree = rootRoute.addChildren({
   IndexRoute,
   CommonapiIndexRoute,
   CommonapiApiVersionApiEndpointRoute,
+  TaxpayerReturnsIndexRoute,
   CommonapiApiVersionApiSubTypeApiEndpointRoute,
 })
 
@@ -95,6 +109,7 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/commonapi/",
         "/commonapi/$apiVersion/$apiEndpoint",
+        "/taxpayer/returns/",
         "/commonapi/$apiVersion/$apiSubType/$apiEndpoint"
       ]
     },
@@ -106,6 +121,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/commonapi/$apiVersion/$apiEndpoint": {
       "filePath": "commonapi/$apiVersion.$apiEndpoint.tsx"
+    },
+    "/taxpayer/returns/": {
+      "filePath": "taxpayer/returns/index.tsx"
     },
     "/commonapi/$apiVersion/$apiSubType/$apiEndpoint": {
       "filePath": "commonapi/$apiVersion.$apiSubType.$apiEndpoint.tsx"

@@ -1,4 +1,4 @@
-import { FullApiProps, commonApis } from "@/components/commonapis/data";
+import { FullApiProps, commonApis } from "@/components/api-data-table/data";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -28,19 +28,19 @@ export const Route = createFileRoute("/commonapi/$apiVersion/$apiEndpoint")({
         null,
         apiEndpoint,
       );
-      localStorage.setItem("apiData", JSON.stringify(apiData))
+      localStorage.setItem("apiData", JSON.stringify(apiData));
       if (apiData) {
-        return apiData.title
+        return apiData.title;
       }
     },
   }),
   component: () => {
-    let localData = localStorage.getItem("apiData")
+    let localData = localStorage.getItem("apiData");
     if (localData && JSON.parse(localData)) {
-      let apiData: FullApiProps = JSON.parse(localData)
+      let apiData: FullApiProps = JSON.parse(localData);
       return <ApiDetails apiData={apiData} />;
     } else {
-      redirect({ to: "/commonapi", throw: true })
+      redirect({ to: "/commonapi", throw: true });
     }
   },
 });

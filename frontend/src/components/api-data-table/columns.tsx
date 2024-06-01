@@ -26,7 +26,9 @@ export const columns: ColumnDef<CommonApiProps>[] = [
         <div className="flex flex-col items-start justify-start pl-4">
           <div className="flex items-center">
             <h4 className="text-base">{row.getValue("title")}</h4>
-            <div className="ml-2 font-light">[{row.original.apiAction}]</div>
+            {row.original.apiAction ? (
+              <div className="ml-2 font-light">[{row.original.apiAction}]</div>
+            ) : null}
           </div>
           <p className="!mt-0 text-muted-foreground">
             {row.original.description}
@@ -50,32 +52,38 @@ export const columns: ColumnDef<CommonApiProps>[] = [
                 <TableCell className="w-96 whitespace-nowrap text-left font-mono">
                   {getHttpMethodWithStyle(row.original.httpMethod)}
                   <span className="ml-2">
-                    {api.url.replace("https://<domain-name>", "")}
+                    {api.url
+                      ? api.url.replace("https://<domain-name>", "")
+                      : ""}
                   </span>
                 </TableCell>
                 <TableCell>
-                  {api.subType ? (
-                    <Link
-                      to="/commonapi/$apiVersion/$apiSubType/$apiEndpoint"
-                      params={{
-                        apiVersion: api.version,
-                        apiSubType: api.subType,
-                        apiEndpoint: api.apiEndpoint,
-                      }}
-                    >
-                      <Button>Show More</Button>
-                    </Link>
-                  ) : (
-                    <Link
-                      to="/commonapi/$apiVersion/$apiEndpoint"
-                      params={{
-                        apiVersion: api.version,
-                        apiEndpoint: api.apiEndpoint,
-                      }}
-                    >
-                      <Button>Show More</Button>
-                    </Link>
-                  )}
+                  {api.apiEndpoint ? (
+                    <>
+                      {api.subType ? (
+                        <Link
+                          to="/commonapi/$apiVersion/$apiSubType/$apiEndpoint"
+                          params={{
+                            apiVersion: api.version,
+                            apiSubType: api.subType,
+                            apiEndpoint: api.apiEndpoint,
+                          }}
+                        >
+                          <Button>Show More</Button>
+                        </Link>
+                      ) : (
+                        <Link
+                          to="/commonapi/$apiVersion/$apiEndpoint"
+                          params={{
+                            apiVersion: api.version,
+                            apiEndpoint: api.apiEndpoint,
+                          }}
+                        >
+                          <Button>Show More</Button>
+                        </Link>
+                      )}
+                    </>
+                  ) : null}
                 </TableCell>
               </TableRow>
             ))}

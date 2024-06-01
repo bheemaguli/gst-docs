@@ -45,6 +45,14 @@ function RootComponent() {
         >
           CommpnApi
         </Link>
+        <Link
+          to={"/taxpayer/returns"}
+          activeProps={{
+            className: "font-bold",
+          }}
+        >
+          Returns
+        </Link>
       </div>
       <hr />
       <div className="container mx-auto py-4">
