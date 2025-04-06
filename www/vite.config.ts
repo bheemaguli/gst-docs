@@ -12,4 +12,13 @@ export default defineConfig({
     },
   },
   base: "/gst-docs/",
+  server: {
+    proxy: {
+      '/gst-portal': {
+        target: 'https://developer.gst.gov.in',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/gst-portal/, ''),
+      }
+    }
+  }
 });

@@ -36,7 +36,15 @@ function RootComponent() {
           activeOptions={{ exact: true }}
         >
           Home
-        </Link>{" "}
+        </Link>
+        <Link
+          to={"/taxpayer-api-overview"}
+          activeProps={{
+            className: "font-bold",
+          }}
+        >
+          Taxpayer Api Overview
+        </Link>
         <Link
           to={"/commonapi"}
           activeProps={{
@@ -58,9 +66,9 @@ function RootComponent() {
       <div className="container mx-auto py-4">
         <Outlet />
       </div>
-      {process.env.NODE_ENV == 'development' ?
-        <TanStackRouterDevtools position="bottom-left" /> : null
-      }
+      {process.env.NODE_ENV == "development" ? (
+        <TanStackRouterDevtools position="bottom-left" />
+      ) : null}
     </>
   );
 }

@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TaxpayerApiOverviewImport } from './routes/taxpayer-api-overview'
 import { Route as IndexImport } from './routes/index'
 import { Route as CommonapiIndexImport } from './routes/commonapi/index'
 import { Route as TaxpayerReturnsIndexImport } from './routes/taxpayer/returns/index'
@@ -18,6 +19,11 @@ import { Route as CommonapiApiVersionApiEndpointImport } from './routes/commonap
 import { Route as CommonapiApiVersionApiSubTypeApiEndpointImport } from './routes/commonapi/$apiVersion.$apiSubType.$apiEndpoint'
 
 // Create/Update Routes
+
+const TaxpayerApiOverviewRoute = TaxpayerApiOverviewImport.update({
+  path: '/taxpayer-api-overview',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   path: '/',
@@ -57,6 +63,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/taxpayer-api-overview': {
+      id: '/taxpayer-api-overview'
+      path: '/taxpayer-api-overview'
+      fullPath: '/taxpayer-api-overview'
+      preLoaderRoute: typeof TaxpayerApiOverviewImport
+      parentRoute: typeof rootRoute
+    }
     '/commonapi/': {
       id: '/commonapi/'
       path: '/commonapi'
@@ -92,6 +105,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
+  TaxpayerApiOverviewRoute,
   CommonapiIndexRoute,
   CommonapiApiVersionApiEndpointRoute,
   TaxpayerReturnsIndexRoute,
@@ -107,6 +121,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/taxpayer-api-overview",
         "/commonapi/",
         "/commonapi/$apiVersion/$apiEndpoint",
         "/taxpayer/returns/",
@@ -115,6 +130,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/taxpayer-api-overview": {
+      "filePath": "taxpayer-api-overview.tsx"
     },
     "/commonapi/": {
       "filePath": "commonapi/index.tsx"
